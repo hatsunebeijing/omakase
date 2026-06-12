@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exclusive Omakase Dining Event | Hatsune Beijing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+SC:wght@300;500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles & Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', 'Noto Serif SC', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .brand {
+            font-family: 'Cinzel', 'Noto Serif SC', serif;
+            letter-spacing: 2px;
+        }
+        .gold-text {
+            color: #d4af37;
+        }
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(18, 18, 18, 1)), 
+                        url('https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+        .logo-area {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 5px;
+        }
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1.5s ease;
+        }
+        header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: #b3b3b3;
+        }
+        .cta-btn {
+            display: inline-block;
+            background-color: #d4af37;
+            color: #121212;
+            padding: 12px 35px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cta-btn:hover {
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* Event Details Grid & Timer */
+        .info-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .detail-card {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            transition: border 0.3s ease;
+        }
+        .detail-card:hover {
+            border-color: #d4af37;
+        }
+        .detail-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        /* Countdown Timer */
+        .timer-container {
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a1a, #262626);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            margin-top: 40px;
+        }
+        .timer-container h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .time-box {
+            background: #121212;
+            padding: 15px 25px;
+            border-radius: 6px;
+            border-bottom: 3px solid #d4af37;
+            min-width: 90px;
+        }
+        .time-box span {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .time-box label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            background-color: #161616;
+            padding: 90px 20px;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 60px;
+            font-style: italic;
+        }
+        .menu-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .menu-category {
+            margin-bottom: 40px;
+        }
+        .category-title {
+            font-size: 1.2rem;
+            color: #d4af37;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+        .item-name {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            font-weight: 400;
+            max-width: 80%;
+        }
+        .item-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #444;
+            margin: 0 15px;
+            position: relative;
+            top: -4px;
+        }
+        .item-tag {
+            font-size: 0.85rem;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Map / Venue Section */
+        .venue-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .map-wrapper {
+            margin-top: 40px;
+            position: relative;
+            padding-bottom: 450px; /* Map height */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .map-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: grayscale(1) invert(0.9) contrast(1.2); /* Gives the map a cool dark theme match */
+        }
+        .address-text {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #b3b3b3;
+        }
+
+        /* Footer / Reservation Section */
+        footer {
+            background-color: #0d0d0d;
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+        }
+        footer p {
+            color: #666;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.3rem; }
+            #countdown { gap: 10px; }
+            .time-box { padding: 10px 15px; min-width: 70px; }
+            .time-box span { font-size: 1.5rem; }
+            .menu-item { flex-direction: column; align-items: flex-start; margin-bottom: 25px;}
+            .item-dots { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area class="gold-text"">HATSUNE • 初音</div>
+        <h1>An Exclusive <span class="gold-text">Omakase</span> Journey</h1>
+        <p>Experience a strictly curated, multi-course culinary experience detailing modern Japanese mastery. Limited seating available.</p>
+        <a href="#reserve" class="cta-btn">Request A Seat</a>
+    </header>
+
+    <section class="info-section">
+        <div class="details-grid">
+            <div class="detail-card">
+                <h3>Date & Time</h3>
+                <p class="gold-text" style="font-size: 1.2rem; font-weight:600;">June 18, 2026</p>
+                <p style="color: #888; margin-top: 5px;">Evening Seating</p>
+            </div>
+            <div class="detail-card">
+                <h3>The Value</h3>
+                <p class="gold-text" style="font-size: 1.2rem; font-weight:600;">350 RMB</p>
+                <p style="color: #888; margin-top: 5px;">Per Person • All Inclusive Menu</p>
+            </div>
+            <div class="detail-card">
+                <h3>The Experience</h3>
+                <p class="gold-text" style="font-size: 1.2rem; font-weight:600;">12 Curated Courses</p>
+                <p style="color: #888; margin-top: 5px;">Fresh ingredients & seasonal pairings</p>
+            </div>
+        </div>
+
+        <div class="timer-container">
+            <h2>The Culinary Countdown</h2>
+            <div id="countdown">
+                <div class="time-box"><span id="days">00</span><br><label>Days</label></div>
+                <div class="time-box"><span id="hours">00</span><br><label>Hours</label></div>
+                <div class="time-box"><span id="minutes">00</span><br><label>Mins</label></div>
+                <div class="time-box"><span id="seconds">00</span><br><label>Secs</label></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+        <h2 class="section-title">The Omakase Menu</h2>
+        <p class="section-subtitle">A harmonious progression of flavor, texture, and technique</p>
+
+        <div class="menu-container">
+            
+            <div class="menu-category">
+                <div class="category-title">To Begin</div>
+                <div class="menu-item">
+                    <div class="item-name">Sea Salt Edamame</div>
+                    <div class="item-dots"></div>
+                    <div class="item-tag">Starter</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Grilled Sea Bream</div>
+                    <div class="item-dots"></div>
+                    <div class="item-tag">Sesame Sauce / Scallions</div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <div class="category-title">Ocean Tartare</div>
+                <div class="menu-item">
+                    <div class="item-name">Sweet Shrimp Tartare</div>
+                    <div class="item-dots"></div>
+                    <div class="item-tag">Black Tobiko / Fried Shrimp Heads</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Bluefin Tartare & Sea Urchin</div>
+                    <div class="item-dots"></div>
+                    <div class="item-tag">Black Tobiko / Crispy Seaweed</div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <div class="category-title">Hand Crafted Rolls</div>
+                <div class="menu-item">
+                    <div class="item-name">Unagi Hand Roll</div>
+                    <div class="item-dots"></div>
+                    <div class="item-tag">Chopped Negihama</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Miso Salmon Hand Roll</div>
+                    <div class="item-dots"></div>
+                    <div class="item-tag">Gobo-age / Boston Lettuce</div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <div class="category-title">Hot Kitchen & Savory</div>
+                <div class="menu-item">
+                    <div class="item-name">Crispy Scaled Amadai</div>
+                    <div class="item-dots"></div>
+                    <div class="item-tag">Yuzu Vinegar Jelly / Sesame</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Smoked Yellowtail Mini Rice</div>
+                    <div class="item-dots"></div>
+                    <div class="item-tag">Seaweed Sauce / Soy Egg Yolk / Scallions / Sesame</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Assorted Mushroom Clear Soup</div>
+                    <div class="item-dots"></div>
+                    <div class="item-tag">Maitake / Black Spear / Enoki / Button / Shiitake</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Filet Mignon Katsu</div>
+                    <div class="item-dots"></div>
+                    <div class="item-tag">Scallions / Tonkatsu Sauce / Sesame</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Salmon Fried Rice</div>
+                    <div class="item-dots"></div>
+                    <div class="item-tag">Ikura / Scallions / Shredded Seaweed</div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <div class="category-title">The Grand Finale</div>
+                <div class="menu-item">
+                    <div class="item-name">Uji Matcha Tiramisu</div>
+                    <div class="item-dots"></div>
+                    <div class="item-tag">Almond Slices</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="venue-section">
+        <h2 class="section-title">The Venue</h2>
+        <p class="address-text">朝阳区北京城区来广营东路与马南里东路交叉口东180米</p>
+        
+        <div class="map-wrapper">
+            <iframe 
+                src="https://maps.google.com/maps?q=%E6%9C%9D%E9%98%B3%E5%8C%BA%E5%8C%95%E4%BA%AC%E5%9F%8E%E5%8C%BA%E6%9D%A5%E5%B9%BF%E8%90%A5%E4%B8%9C%E8%B7%AF%E4%B8%8E%E9%A9%AC%E5%8D%97%E9%87%8C%E4%B8%9C%E8%B7%AF%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%B8%9C180%E7%B1%B3&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+            </iframe>
+        </div>
+    </section>
+
+    <footer id="reserve">
+        <h2 class="gold-text" style="margin-bottom: 15px;">Secure Your Counter Space</h2>
+        <p style="color: #bbb; max-width: 500px; margin: 0 auto 30px auto;">Due to the delicate nature of Omakase, seats are strictly limited. Contact us immediately to finalize your reservation.</p>
+        <a href="tel:YOUR_PHONE_NUMBER_HERE" class="cta-btn">Call to Book</a>
+        <p>&copy; 2026 Hatsune Beijing. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Set the target event date (June 18, 2026)
+        const eventDate = new Date("June 18, 2026 18:00:00").getTime();
+
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const timeLeft = eventDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            // Display results in the matching elements
+            document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+
+            // If the countdown is finished, write some text 
+            if (timeLeft < 0) {
+                clearInterval(timerInterval);
+                document.getElementById("countdown").innerHTML = "<h3 class='gold-text'>The Event Has Begun!</h3>";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
