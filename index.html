@@ -6,7 +6,7 @@
     <title>Exclusive Omakase Dining Event | Hatsune Beijing</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght=400;600;700&family=Noto+Serif+SC:wght=300;500;700&family=Poppins:wght=300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+SC:wght@300;500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* Global Styles & Reset */
         * {
@@ -43,9 +43,27 @@
             position: relative;
         }
         .logo-area {
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 2rem;
             border-bottom: 2px solid #d4af37;
-            padding-bottom: 15px;
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .logo-img {
+            height: 48px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            transition: transform 0.3s ease;
+        }
+        .logo-img:hover {
+            transform: scale(1.02);
+        }
+        .logo-text {
+            display: inline-block;
         }
         header h1 {
             font-size: 3.5rem;
@@ -209,37 +227,27 @@
             margin: 0 auto;
             text-align: center;
         }
-        .map-link-wrapper {
-            display: block;
+        .map-wrapper {
             margin-top: 40px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            position: relative;
+            padding-bottom: 450px; /* Map height */
+            height: 0;
+            overflow: hidden;
             border-radius: 8px;
             border: 1px solid #333;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease, border-color 0.3s ease;
         }
-        .map-link-wrapper:hover {
-            transform: scale(1.01);
-            border-color: #d4af37;
-        }
-        .map-img {
+        .map-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            display: block;
+            height: 100%;
+            filter: grayscale(1) invert(0.9) contrast(1.2); /* Gives the map a cool dark theme match */
         }
         .address-text {
             margin-top: 20px;
             font-size: 1.1rem;
             color: #b3b3b3;
-        }
-        .map-hint {
-            display: inline-block;
-            margin-top: 10px;
-            font-size: 0.85rem;
-            color: #888;
         }
 
         /* Footer / Reservation Section */
@@ -275,6 +283,13 @@
             .time-box span { font-size: 1.5rem; }
             .menu-item { flex-direction: column; align-items: flex-start; margin-bottom: 25px;}
             .item-dots { display: none; }
+            .logo-img {
+                height: 36px;
+            }
+            .logo-area {
+                gap: 8px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -282,7 +297,8 @@
 
     <header>
         <div class="logo-area">
-            <img src="hatsunelogo.png" alt="Hatsune Logo" style="max-height: 80px; width: auto; display: block; margin: 0 auto;">
+            <img src="hatsunelogo.png" alt="Hatsune Logo" class="logo-img">
+            <span class="logo-text gold-text">HATSUNE • 隐泉日式料理</span>
         </div>
         <h1>An Exclusive <span class="gold-text">Omakase</span> Journey</h1>
         <p>Experience a strictly curated, multi-course culinary experience detailing modern Japanese mastery. Limited seating available.</p>
@@ -412,17 +428,19 @@
         <h2 class="section-title">The Venue</h2>
         <p class="address-text">朝阳区北京城区来广营东路与马南里东路交叉口东180米</p>
         
-        <a class="map-link-wrapper" href="https://map.baidu.com/search/?query=朝阳区来广营东路与马南里东路交叉口东180米" target="_blank">
-            <img class="map-img" src="https://api.map.baidu.com/staticimage/v2?ak=YOUR_BAIDU_MAPS_AK_IF_AVAILABLE&center=%E6%9D%A5%E5%B9%BF%E8%90%A5%E4%B8%9C%E8%B7%AF&zoom=16&width=800&height=400&markers=%E6%9D%A5%E5%B9%BF%E8%90%A5%E4%B8%9C%E8%B7%AF%E4%B8%8E%E9%A9%AC%E5%8D%97%E9%87%8C%E4%B8%9C%E8%B7%AF%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%B8%9C180%E7%B1%B3&markerStyles=l,A" alt="Baidu Map Location Location">
-        </a>
-        <span class="map-hint">*点击地图在百度地图中打开路线导航 (Click map to navigate on Baidu Maps)*</span>
+        <div class="map-wrapper">
+            <iframe 
+                src="https://maps.google.com/maps?q=%E6%9C%9D%E9%98%B3%E5%8C%BA%E5%8C%95%E4%BA%AC%E5%9F%8E%E5%8C%BA%E6%9D%A5%E5%B9%BF%E8%90%A5%E4%B8%9C%E8%B7%AF%E4%B8%8E%E9%A9%AC%E5%8D%97%E9%87%8C%E4%B8%9C%E8%B7%AF%E4%BA%A4%E5%8F%89%E5%8F%A3%E4%B8%9C180%E7%B1%B3&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+            </iframe>
+        </div>
     </section>
 
     <footer id="reserve">
         <h2 class="gold-text" style="margin-bottom: 15px;">Secure Your Counter Space</h2>
         <p style="color: #bbb; max-width: 500px; margin: 0 auto 30px auto;">Due to the delicate nature of Omakase, seats are strictly limited. Contact us immediately to finalize your reservation.</p>
         <a href="tel:YOUR_PHONE_NUMBER_HERE" class="cta-btn">Call to Book</a>
-        <p>© 2026 Hatsune Beijing. All Rights Reserved.</p>
+        <p>&copy; 2026 Hatsune Beijing. All Rights Reserved.</p>
     </footer>
 
     <script>
