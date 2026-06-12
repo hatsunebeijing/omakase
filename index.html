@@ -87,11 +87,91 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            font-size: 1rem;
         }
         .cta-btn:hover {
             background-color: #fff;
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
             transform: translateY(-2px);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.3s ease, opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-container {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: modalScaleIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .signup-image {
+            max-width: 100%;
+            max-height: 85vh;
+            width: auto;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(212, 175, 55, 0.3);
+            display: block;
+        }
+        .close-modal-btn {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #d4af37;
+            color: #121212;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            font-family: monospace;
+        }
+        .close-modal-btn:hover {
+            background-color: #fff;
+            transform: scale(1.05);
+            color: #d4af37;
+        }
+        @keyframes modalScaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         /* Event Details Grid & Timer */
@@ -290,6 +370,13 @@
                 gap: 8px;
                 font-size: 1.2rem;
             }
+            .close-modal-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 24px;
+                top: -12px;
+                right: -12px;
+            }
         }
     </style>
 </head>
@@ -298,12 +385,20 @@
     <header>
         <div class="logo-area">
             <img src="hatsunelogo.png" alt="Hatsune Logo" class="logo-img">
-            <span class="logo-text gold-text">HATSUNE • 隐泉日式料理</span>
+            <span class="logo-text gold-text">HATSUNE • 初音</span>
         </div>
         <h1>An Exclusive <span class="gold-text">Omakase</span> Journey</h1>
         <p>Experience a strictly curated, multi-course culinary experience detailing modern Japanese mastery. Limited seating available.</p>
-        <a href="#reserve" class="cta-btn">Request A Seat</a>
+        <button id="requestSeatBtn" class="cta-btn">Request A Seat</button>
     </header>
+
+    <!-- Modal for Signup Image -->
+    <div id="signupModal" class="modal-overlay">
+        <div class="modal-container">
+            <img src="signup.png" alt="Reservation Signup Form" class="signup-image" id="signupImage">
+            <div class="close-modal-btn" id="closeModalBtn">&times;</div>
+        </div>
+    </div>
 
     <section class="info-section">
         <div class="details-grid">
@@ -469,6 +564,52 @@
                 document.getElementById("countdown").innerHTML = "<h3 class='gold-text'>The Event Has Begun!</h3>";
             }
         }, 1000);
+
+        // Modal functionality: display signup.png when "Request A Seat" is clicked
+        const requestBtn = document.getElementById('requestSeatBtn');
+        const modal = document.getElementById('signupModal');
+        const closeBtn = document.getElementById('closeModalBtn');
+
+        // Function to open modal with smooth display
+        function openModal() {
+            modal.classList.add('active');
+            // Prevent body scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close modal
+        function closeModal() {
+            modal.classList.remove('active');
+            // Restore body scrolling
+            document.body.style.overflow = '';
+        }
+
+        // Event listener for the Request A Seat button
+        if (requestBtn) {
+            requestBtn.addEventListener('click', openModal);
+        }
+
+        // Event listener for close button
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
+
+        // Close modal when clicking outside the image (on the overlay)
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                // If the click is directly on the overlay (not on modal-container or its children)
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Optional: Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
