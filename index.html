@@ -65,6 +65,26 @@
         .logo-text {
             display: inline-block;
         }
+        .theme-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.12);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 40px;
+            padding: 8px 24px;
+            margin-bottom: 24px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #d4af37;
+            font-weight: 500;
+            animation: fadeInUp 1.2s ease;
+        }
+        .theme-badge span {
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
         header h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
@@ -203,6 +223,16 @@
             to {
                 opacity: 1;
                 transform: scale(1);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -415,6 +445,12 @@
             .wechat-message p {
                 font-size: 0.85rem;
             }
+            .theme-badge {
+                font-size: 0.7rem;
+                padding: 5px 18px;
+                letter-spacing: 2px;
+                margin-bottom: 18px;
+            }
         }
     </style>
 </head>
@@ -425,6 +461,12 @@
             <img src="hatsunelogo.png" alt="Hatsune Logo" class="logo-img">
             <span class="logo-text gold-text">HATSUNE • 隐泉日式料理</span>
         </div>
+        
+        <!-- Theme Name: Summer Prelude -->
+        <div class="theme-badge">
+            ✦ SUMMER PRELUDE ✦
+        </div>
+        
         <h1>An Exclusive <span class="gold-text">Omakase</span> Journey</h1>
         <p>Experience a strictly curated, multi-course culinary experience detailing modern Japanese mastery. Limited seating available.</p>
         <button id="requestSeatBtn" class="cta-btn">Request A Seat</button>
@@ -571,7 +613,7 @@
 
     <section class="venue-section">
         <h2 class="section-title">The Venue</h2>
-        <p class="address-text">朝阳区北京城区来广营东路与马南里东路交叉口东180米 （隐泉日式料理-来广营店）</p>
+        <p class="address-text">朝阳区北京城区来广营东路与马南里东路交叉口东180米（隐泉日式料理-来广营店）</p>
         
         <div class="map-wrapper">
             <iframe 
