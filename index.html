@@ -98,7 +98,7 @@
             transform: translateY(-2px);
         }
 
-        /* Modal Overlay */
+        /* Modal Overlay - Reusable for both modals */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -128,15 +128,47 @@
             align-items: center;
             justify-content: center;
             animation: modalScaleIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
-        .signup-image {
+        .modal-image {
             max-width: 100%;
-            max-height: 85vh;
+            max-height: 65vh;
             width: auto;
             height: auto;
             border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(212, 175, 55, 0.3);
             display: block;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        .wechat-message {
+            background: #0d0d0d;
+            padding: 14px 24px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 8px;
+            text-align: center;
+            border-left: 4px solid #d4af37;
+            font-family: 'Poppins', monospace;
+        }
+        .wechat-message p {
+            color: #e0e0e0;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+        .wechat-message .wechat-id {
+            color: #d4af37;
+            font-weight: 600;
+            font-size: 1.1rem;
+            background: #1f1f1f;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 30px;
+            margin-top: 8px;
+            font-family: monospace;
         }
         .close-modal-btn {
             position: absolute;
@@ -310,7 +342,7 @@
         .map-wrapper {
             margin-top: 40px;
             position: relative;
-            padding-bottom: 450px; /* Map height */
+            padding-bottom: 450px;
             height: 0;
             overflow: hidden;
             border-radius: 8px;
@@ -322,7 +354,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            filter: grayscale(1) invert(0.9) contrast(1.2); /* Gives the map a cool dark theme match */
+            filter: grayscale(1) invert(0.9) contrast(1.2);
         }
         .address-text {
             margin-top: 20px;
@@ -377,6 +409,12 @@
                 top: -12px;
                 right: -12px;
             }
+            .modal-container {
+                padding: 15px;
+            }
+            .wechat-message p {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
@@ -392,11 +430,23 @@
         <button id="requestSeatBtn" class="cta-btn">Request A Seat</button>
     </header>
 
-    <!-- Modal for Signup Image -->
+    <!-- Modal for Request A Seat (signup.png) -->
     <div id="signupModal" class="modal-overlay">
         <div class="modal-container">
-            <img src="signup.png" alt="Reservation Signup Form" class="signup-image" id="signupImage">
-            <div class="close-modal-btn" id="closeModalBtn">&times;</div>
+            <img src="signup.png" alt="Reservation Signup Form" class="modal-image">
+            <div class="close-modal-btn" id="closeSignupModalBtn">&times;</div>
+        </div>
+    </div>
+
+    <!-- Modal for Contact Us (joingroupchat.png + WeChat message) -->
+    <div id="contactModal" class="modal-overlay">
+        <div class="modal-container">
+            <img src="joingroupchat.png" alt="Join Group Chat QR Code" class="modal-image">
+            <div class="wechat-message">
+                <p>✨ Or please add our manager's WeChat ✨</p>
+                <div class="wechat-id">Zq_wtx</div>
+            </div>
+            <div class="close-modal-btn" id="closeContactModalBtn">&times;</div>
         </div>
     </div>
 
@@ -534,7 +584,7 @@
     <footer id="reserve">
         <h2 class="gold-text" style="margin-bottom: 15px;">Secure Your Counter Space</h2>
         <p style="color: #bbb; max-width: 500px; margin: 0 auto 30px auto;">Due to the delicate nature of Omakase, seats are strictly limited. Contact us immediately to finalize your reservation.</p>
-        <a href="tel:YOUR_PHONE_NUMBER_HERE" class="cta-btn">Call to Book</a>
+        <button id="contactUsBtn" class="cta-btn">Contact Us</button>
         <p>&copy; 2026 Hatsune Beijing. All Rights Reserved.</p>
     </footer>
 
@@ -565,49 +615,73 @@
             }
         }, 1000);
 
-        // Modal functionality: display signup.png when "Request A Seat" is clicked
+        // --- Request A Seat Modal Logic (signup.png) ---
         const requestBtn = document.getElementById('requestSeatBtn');
-        const modal = document.getElementById('signupModal');
-        const closeBtn = document.getElementById('closeModalBtn');
+        const signupModal = document.getElementById('signupModal');
+        const closeSignupBtn = document.getElementById('closeSignupModalBtn');
 
-        // Function to open modal with smooth display
-        function openModal() {
-            modal.classList.add('active');
-            // Prevent body scrolling when modal is open
+        function openSignupModal() {
+            signupModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        // Function to close modal
-        function closeModal() {
-            modal.classList.remove('active');
-            // Restore body scrolling
+        function closeSignupModal() {
+            signupModal.classList.remove('active');
             document.body.style.overflow = '';
         }
 
-        // Event listener for the Request A Seat button
         if (requestBtn) {
-            requestBtn.addEventListener('click', openModal);
+            requestBtn.addEventListener('click', openSignupModal);
         }
-
-        // Event listener for close button
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeModal);
+        if (closeSignupBtn) {
+            closeSignupBtn.addEventListener('click', closeSignupModal);
         }
-
-        // Close modal when clicking outside the image (on the overlay)
-        if (modal) {
-            modal.addEventListener('click', function(e) {
-                // If the click is directly on the overlay (not on modal-container or its children)
-                if (e.target === modal) {
-                    closeModal();
+        if (signupModal) {
+            signupModal.addEventListener('click', function(e) {
+                if (e.target === signupModal) {
+                    closeSignupModal();
                 }
             });
         }
 
-        // Optional: Close modal with Escape key
+        // --- Contact Us Modal Logic (joingroupchat.png + WeChat message) ---
+        const contactBtn = document.getElementById('contactUsBtn');
+        const contactModal = document.getElementById('contactModal');
+        const closeContactBtn = document.getElementById('closeContactModalBtn');
+
+        function openContactModal() {
+            contactModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeContactModal() {
+            contactModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (contactBtn) {
+            contactBtn.addEventListener('click', openContactModal);
+        }
+        if (closeContactBtn) {
+            closeContactBtn.addEventListener('click', closeContactModal);
+        }
+        if (contactModal) {
+            contactModal.addEventListener('click', function(e) {
+                if (e.target === contactModal) {
+                    closeContactModal();
+                }
+            });
+        }
+
+        // Close modals with Escape key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                closeModal();
+            if (e.key === 'Escape') {
+                if (signupModal && signupModal.classList.contains('active')) {
+                    closeSignupModal();
+                }
+                if (contactModal && contactModal.classList.contains('active')) {
+                    closeContactModal();
+                }
             }
         });
     </script>
